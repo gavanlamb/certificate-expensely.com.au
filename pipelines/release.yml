@@ -23,10 +23,12 @@ pr:
 stages:
   - stage: Production
     displayName: Production
+    variables:
+      - group: terraform_ap-southeast-2_production
     jobs:
       - template: templates/environment-release.yml
         parameters:
           environment: production
-          serviceConnectionName: aws_expensely_production_ap-southeast-2
-          stateBucketName: expensely-terraform-production-ap-southeast-2
-          stateLockTableName: expensely-terraform-lock-production-ap-southeast-2
+          serviceConnectionName: $(terraformServiceConnectionName)
+          stateBucketName: $(terraformStateBucketName)
+          stateLockTableName: $(terraformStateLockTableName)
