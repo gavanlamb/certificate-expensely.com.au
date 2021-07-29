@@ -32,3 +32,4 @@ stages:
           serviceConnectionName: $(terraformServiceConnectionName)
           stateBucketName: $(terraformStateBucketName)
           stateLockTableName: $(terraformStateLockTableName)
+          region: $(terraformRegion)
