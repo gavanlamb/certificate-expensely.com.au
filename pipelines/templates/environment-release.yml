@@ -30,18 +30,11 @@ jobs:
           version: 1.0.2
           workingDirectory: $(Build.SourcesDirectory)/infrastructure
           workspaceName: expensely-com-au-certificate-${{ parameters.environment }}
-  - job: approve
-    displayName: Approve
-    dependsOn: Plan
-    pool: server
-    steps:
-      - task: ManualValidation@0
-        displayName: Approve Changes
-        inputs:
-          notifyUsers: '[Expensely]\Expensely Team'
-          onTimeout: reject
-          instructions: Validate Terraform plan
-        timeoutInMinutes: 5
+  - template: job/approve.yml@templates
+    parameters:
+      dependsOn: plan
+      timeoutInMinutes: 60
+      notifyUsers: '[Expensely]\Expensely Team'
   - deployment: apply
     displayName: Apply
     dependsOn: approve
