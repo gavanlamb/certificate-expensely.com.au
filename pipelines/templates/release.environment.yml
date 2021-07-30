@@ -22,13 +22,10 @@ jobs:
       - template: aws/terraform/plan.yml@templates
         parameters:
           artifactName: ${{ parameters.environment }}_${{ parameters.region }}
-          initAdditionalCommandOptions: '-no-color'
           planAdditionalCommandOptions: '-var-file=variables/${{ parameters.environment }}.${{ parameters.region }}.tfvars'
           serviceConnectionName: ${{ parameters.serviceConnectionName }}
           stateBucketName: ${{ parameters.stateBucketName }}
           stateLockTableName: ${{ parameters.stateLockTableName }}
-          version: 1.0.2
-          workingDirectory: $(Build.SourcesDirectory)/infrastructure
           workspaceName: expensely-com-au-certificate-${{ parameters.environment }}
   - template: job/approve.yml@templates
     parameters:
@@ -46,10 +43,5 @@ jobs:
             - download: none
             - template: aws/terraform/apply.yml@templates
               parameters:
-                applyAdditionalCommandOptions: '-no-color'
-                archiveName: terraform.tar.gz
                 artifactName: ${{ parameters.environment }}_${{ parameters.region }}
-                planFile: plan.tfplan
                 serviceConnectionName: ${{ parameters.serviceConnectionName }}
-                version: 1.0.2
-                workingDirectory: $(Pipeline.Workspace)
