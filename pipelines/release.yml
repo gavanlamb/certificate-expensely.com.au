@@ -24,9 +24,9 @@ stages:
   - stage: Production
     displayName: Production
     variables:
-      - group: terraform_ap-southeast-2_production
+      - group: terraform-ap-southeast-2-production
     jobs:
-      - template: templates/environment-release.yml
+      - template: templates/release.environment.yml
         parameters:
           environment: production
           serviceConnectionName: $(terraformServiceConnectionName)
