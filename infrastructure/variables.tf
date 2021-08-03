@@ -10,11 +10,6 @@ variable "domain_name" {
   default = null
 }
 
-variable "expensely_loadbalancer_name" {
-  type = string
-  default = null
-}
-
 locals {
   default_tags = {
     Application = "Expensely"

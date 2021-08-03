@@ -35,8 +35,3 @@ resource "aws_acm_certificate_validation" "wildcard" {
   certificate_arn         = aws_acm_certificate.wildcard.arn
   validation_record_fqdns = [for record in aws_route53_record.wildcard_validation : record.fqdn]
 }
-
-resource "aws_lb_listener_certificate" "wildcard" {
-  listener_arn = data.aws_lb_listener.expensely.arn
-  certificate_arn = aws_acm_certificate.wildcard.arn
-}
