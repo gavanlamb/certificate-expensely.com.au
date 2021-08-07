@@ -21,8 +21,23 @@ pr:
       - '*'
 
 stages:
+  - stage: preview
+    displayName: Preview
+    dependsOn: []
+    variables:
+      - group: terraform-us-east-1-production
+    jobs:
+      - template: templates/release.environment.yml
+        parameters:
+          environment: preview
+          serviceConnectionName: $(terraformServiceConnectionName)
+          stateBucketName: $(terraformStateBucketName)
+          stateLockTableName: $(terraformStateLockTableName)
+          region: $(terraformRegion)
+
   - stage: production
     displayName: Production
+    dependsOn: []
     variables:
       - group: terraform-us-east-1-production
     jobs:
