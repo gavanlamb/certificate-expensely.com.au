@@ -5,6 +5,10 @@ resources:
       type: github
       name: gavanlamb/azure-devops-templates
       endpoint: Expensely
+    - repository: expensely-templates
+      type: github
+      name: expensely/azure-devops-templates
+      endpoint: Expensely
 
 pool:
   vmImage: ubuntu-latest
@@ -25,7 +29,7 @@ stages:
     displayName: Preview
     dependsOn: []
     variables:
-      - group: terraform-ap-southeast-2-production
+      - template: variables/production.ap-southeast-2.yml@expensely-templates
     jobs:
       - template: templates/release.environment.yml
         parameters:
@@ -33,13 +37,13 @@ stages:
           serviceConnectionName: $(terraformServiceConnectionName)
           stateBucketName: $(terraformStateBucketName)
           stateLockTableName: $(terraformStateLockTableName)
-          region: $(terraformRegion)
+          region: $(region)
 
   - stage: production
     displayName: Production
     dependsOn: []
     variables:
-      - group: terraform-ap-southeast-2-production
+      - template: variables/production.ap-southeast-2.yml@expensely-templates
     jobs:
       - template: templates/release.environment.yml
         parameters:
@@ -47,4 +51,4 @@ stages:
           serviceConnectionName: $(terraformServiceConnectionName)
           stateBucketName: $(terraformStateBucketName)
           stateLockTableName: $(terraformStateLockTableName)
-          region: $(terraformRegion)
+          region: $(region)
