@@ -34,7 +34,7 @@ stages:
       - template: templates/release.environment.yml
         parameters:
           environment: preview
-          serviceConnectionName: $(terraformServiceConnectionName)
+          serviceConnectionName: ${{ variables.terraformServiceConnectionName }}
           stateBucketName: $(terraformStateBucketName)
           stateLockTableName: $(terraformStateLockTableName)
           region: $(region)
@@ -48,7 +48,7 @@ stages:
       - template: templates/release.environment.yml
         parameters:
           environment: production
-          serviceConnectionName: $(terraformServiceConnectionName)
+          serviceConnectionName: ${{ variables.terraformServiceConnectionName }}
           stateBucketName: $(terraformStateBucketName)
           stateLockTableName: $(terraformStateLockTableName)
           region: $(region)
