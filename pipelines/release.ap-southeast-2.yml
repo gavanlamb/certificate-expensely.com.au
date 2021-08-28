@@ -29,26 +29,26 @@ stages:
     displayName: Preview
     dependsOn: []
     variables:
-      - template: variables/$(System.StageName).ap-southeast-2.yml@expensely-templates
+      - template: variables/preview.ap-southeast-2.yml@expensely-templates
     jobs:
       - template: templates/release.environment.yml
         parameters:
-          environment: $(System.StageName)
+          environment: ${{ variables.environment }}
           serviceConnectionName: ${{ variables.terraformServiceConnectionName }}
-          stateBucketName: $(terraformStateBucketName)
-          stateLockTableName: $(terraformStateLockTableName)
-          region: $(region)
+          stateBucketName: ${{ variables.terraformStateBucketName }}
+          stateLockTableName: ${{ variables.terraformStateLockTableName }}
+          region: ${{ variables.region }}
 
   - stage: production
     displayName: Production
     dependsOn: []
     variables:
-      - template: variables/$(System.StageName).ap-southeast-2.yml@expensely-templates
+      - template: variables/production.ap-southeast-2.yml@expensely-templates
     jobs:
       - template: templates/release.environment.yml
         parameters:
-          environment: $(System.StageName)
+          environment: ${{ variables.environment }}
           serviceConnectionName: ${{ variables.terraformServiceConnectionName }}
-          stateBucketName: $(terraformStateBucketName)
-          stateLockTableName: $(terraformStateLockTableName)
-          region: $(region)
+          stateBucketName: ${{ variables.terraformStateBucketName }}
+          stateLockTableName: ${{ variables.terraformStateLockTableName }}
+          region: ${{ variables.region }}
